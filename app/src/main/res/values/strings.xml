@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ski-Station</string>
+    <string name="title_activity_lifts">LiftsActivity</string>
+    <string name="title_activity_slopes">SlopesActivity</string>
 </resources>
