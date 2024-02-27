@@ -29,7 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import fr.isen.zachee.ski_station.ui.theme.SkiStationTheme
 
 class SlopesActivity : ComponentActivity() {
@@ -67,20 +70,22 @@ class SlopesActivity : ComponentActivity() {
 }
 
 
-@Composable
-fun GetSlopesData(slopes: SnapshotStateList<Slope>) {
-    SkiDatabase.database.getReference("slopes")
-        .addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val _slopes = snapshot.children.mapNotNull { it.getValue(Slope::class.java) }
-                slopes.addAll(_slopes)
-            }
+fun toggleSlopeStatus(slopeName: String, newStatus: Boolean) {
+    // Obtenir une référence à votre base de données Firebase
+    val databaseReference = FirebaseDatabase.getInstance().getReference("slopes")
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("databaseError", error.toString())
-            }
-        })
+    // Mettre à jour le statut de la piste spécifique
+    databaseReference.child(slopeName).child("status").setValue(newStatus)
+        .addOnSuccessListener {
+            // Gestion de succès
+            Log.d("UpdateStatus", "Status updated successfully for slope: $slopeName")
+        }
+        .addOnFailureListener {
+            // Gestion d'erreur
+            Log.e("UpdateStatus", "Failed to update status for slope: $slopeName", it)
+        }
 }
+
 
 
 
@@ -97,11 +102,13 @@ fun DisplaySlopes() {
 
 
     LazyColumn {
-        items(sortedSlopes) {slope ->
-        //items(items =sortedSlopes, key = { it.name}) {slope ->
+        //items(sortedSlopes) {slope ->
+        items(items =sortedSlopes, key = { it.name }) {slope ->
             Row (
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(all = 8.dp)
+                modifier = Modifier
+                    .padding(all = 8.dp)
+
             ){
                 Text(
                     text = slope.name,
@@ -114,7 +121,10 @@ fun DisplaySlopes() {
                     color = if (slope.status ?: false) Color.Green else Color.Red,
                     modifier = Modifier
                         .weight(1f)
-                        //.clickable { slope.status = !slope.status }
+                        .clickable{
+                            toggleSlopeStatus(slope.name, !slope.status)
+                        }
+
                 )
             Box(
                 modifier = Modifier
@@ -127,6 +137,11 @@ fun DisplaySlopes() {
     }
 }
 
+
+
+
+
+
 fun stringToColor(colorString: String): Color {
     return when(colorString) {
         "red" -> Color.Red
@@ -135,6 +150,24 @@ fun stringToColor(colorString: String): Color {
         "black" -> Color.Black
         else -> Color.Gray // Couleur par défaut si la chaîne ne correspond pas
     }
+}
+
+
+
+@Composable
+fun GetSlopesData(slopes: SnapshotStateList<Slope>) {
+    SkiDatabase.database.getReference("slopes")
+        .addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val _slopes = snapshot.children.mapNotNull { it.getValue(Slope::class.java) }
+                slopes.removeAll { true }
+                slopes.addAll(_slopes)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("databaseError", error.toString())
+            }
+        })
 }
 
 @Preview(showBackground = true)
