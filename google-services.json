@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "24804099185",
+    "firebase_url": "https://station-ski-b2c83-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "station-ski-b2c83",
+    "storage_bucket": "station-ski-b2c83.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24804099185:android:210298217e03ad6c8307d0",
+        "android_client_info": {
+          "package_name": "fr.isen.zachee.ski_station"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGACQu6DYLad4qFbhrqrTdez82xld2iRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

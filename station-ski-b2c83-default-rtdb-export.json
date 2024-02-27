@@ -1,0 +1,198 @@
+{
+  "comments": {
+    "UserID": "",
+    "date": "",
+    "text": ""
+  },
+  "lifts": {
+    "Bouticari": {
+      "name": "bouticari",
+      "status": true
+    },
+    "La Burge": {
+      "name": "la burge",
+      "status": true
+    },
+    "La Troika": {
+      "name": "la troika",
+      "status": true
+    },
+    "Le Beauregard 2": {
+      "name": "la beauregard 2",
+      "status": true
+    },
+    "Le Grand Serre": {
+      "name": "le grand serre",
+      "status": true
+    },
+    "Le Moulin": {
+      "name": "le moulin",
+      "status": true
+    },
+    "Les Amoureux": {
+      "name": " les amoureux",
+      "status": true
+    },
+    "Les Cassettes ": {
+      "name": "les cassettes",
+      "status ": true
+    },
+    "Les Torres": {
+      "name": "les torres",
+      "status": true
+    },
+    "Ste Marie Madeleine": {
+      "name": "ste marie madeleine",
+      "status": true
+    }
+  },
+  "slopes": {
+    "Bouticari Bleu": {
+      "color": "blue",
+      "name": "bouticari bleu",
+      "status": true
+    },
+    "Bouticari Vert": {
+      "color": "greeb",
+      "name": "bouticari vert",
+      "status": true
+    },
+    "Jonction Basse": {
+      "color": "green",
+      "name": "jonction basse",
+      "status": true
+    },
+    "L'Arbre": {
+      "color": "blue",
+      "name": "l'arbre",
+      "status": true
+    },
+    "L'Ecureuil": {
+      "color": "red",
+      "name": "l'ecureuil",
+      "status": true
+    },
+    "L'Inglin": {
+      "color": "blue",
+      "name": "l'inglin",
+      "status": true
+    },
+    "L'Ousselat": {
+      "color": "red",
+      "name": "l'ousselat",
+      "status": true
+    },
+    "La Draye": {
+      "color": "red",
+      "name": "la draye",
+      "status": true
+    },
+    "La Gerabio": {
+      "color": "blue",
+      "name": "la gerabio",
+      "status": true
+    },
+    "La Mandarine": {
+      "color": "red",
+      "name": "la mandarine",
+      "status": true
+    },
+    "La Monthery": {
+      "color": "green",
+      "name": "la monthery",
+      "status": true
+    },
+    "La Rouge Bouticari": {
+      "color": "red",
+      "name": "la rouge bouticari",
+      "status": true
+    },
+    "Le Chamois": {
+      "color": "red",
+      "name": "le chamois",
+      "status": "red"
+    },
+    "Le Forest": {
+      "color": "green",
+      "name": "le forest",
+      "status": true
+    },
+    "Le Gourq": {
+      "color": "blue",
+      "name": "le gourq",
+      "status": true
+    },
+    "Le Lievre": {
+      "color": "black",
+      "name": "le lievre",
+      "status": true
+    },
+    "Le Tetras": {
+      "color": "black",
+      "name": "le tetras",
+      "status": true
+    },
+    "Les Bambinos": {
+      "color": "green",
+      "name": "les bambinos",
+      "status": true
+    },
+    "Les Casses": {
+      "color": "Blue",
+      "name": "les casses",
+      "status": true
+    },
+    "Les Clouzeaux": {
+      "color": "blue",
+      "name": "les clouzeaux",
+      "status": true
+    },
+    "Les Jockeys": {
+      "color": "red",
+      "name": "les jockeys",
+      "status": true
+    },
+    "Les Lampions": {
+      "color": "blue",
+      "name": "les lampions",
+      "status": true
+    },
+    "Les Nbettes": {
+      "color": "blue",
+      "name ": "les nbettes",
+      "status": true
+    },
+    "Les Ramiers": {
+      "color": "green",
+      "name": "les ramiers",
+      "status": true
+    },
+    "Les Rhodos": {
+      "color": "blue",
+      "name ": "les rhodes",
+      "status": true
+    },
+    "Les Sagnières": {
+      "color": "red",
+      "name": "les sagnières",
+      "status": true
+    },
+    "Pre Mean": {
+      "color": "red",
+      "name": "pr mean",
+      "status": true
+    },
+    "S du Chamois": {
+      "color": "blue",
+      "name": "s du chamois",
+      "status": true
+    }
+  },
+  "users": {
+    "Email": "",
+    "FirstName": "",
+    "LastName": "",
+    "Password": "",
+    "UserID": ""
+  }
+}
