@@ -13,7 +13,12 @@
           "package_name": "fr.isen.androiderestaurant"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "24804099185-9s02bvml5a26jh18ik335d06e90i5urg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAGACQu6DYLad4qFbhrqrTdez82xld2iRM"
@@ -21,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24804099185-9s02bvml5a26jh18ik335d06e90i5urg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -32,7 +42,12 @@
           "package_name": "fr.isen.zachee.ski_station"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "24804099185-9s02bvml5a26jh18ik335d06e90i5urg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAGACQu6DYLad4qFbhrqrTdez82xld2iRM"
@@ -40,7 +55,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24804099185-9s02bvml5a26jh18ik335d06e90i5urg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

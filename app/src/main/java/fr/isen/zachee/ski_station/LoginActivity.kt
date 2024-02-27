@@ -57,20 +57,37 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.Composable
+import com.google.android.gms.common.api.ApiException
 
 @OptIn(ExperimentalMaterial3Api::class)
 class LoginActivity : ComponentActivity() {
     private  lateinit var auth: FirebaseAuth
-
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private val RC_SIGN_IN = 100
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         auth = Firebase.auth
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
         val currentUser = auth.currentUser
         if (currentUser != null) {
 
         }
         setContent {
+
             var email by remember { mutableStateOf("") }
             val passwordValue = remember { mutableStateOf(TextFieldValue("")) }
             var password by remember { mutableStateOf("") }
@@ -81,6 +98,19 @@ class LoginActivity : ComponentActivity() {
             var cpasswordVisibility by remember { mutableStateOf(false) }
             var plength by remember { mutableStateOf(false) }
             val context = LocalContext.current
+            val googleSignInLauncher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.StartActivityForResult()
+            ) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                    try {
+                        val account = task.getResult(ApiException::class.java)
+                        firebaseAuthWithGoogle(account.idToken!!)
+                    } catch (e: ApiException) {
+                        Log.w("LoginActivity", "Google sign in failed", e)
+                    }
+                }
+            }
 
 
             Image(
@@ -264,6 +294,20 @@ class LoginActivity : ComponentActivity() {
                 }) {
                     Text("Register")
                 }
+                TextButton(
+                    onClick = {
+
+                        val signInIntent = googleSignInClient.signInIntent
+                        googleSignInLauncher.launch(signInIntent)
+                    },
+                    modifier = Modifier.padding(4.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.google),
+                        contentDescription = "Sign in with Google",
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
             }
         }
     }
@@ -283,6 +327,23 @@ class LoginActivity : ComponentActivity() {
                 }
             }
     }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    goToSlopes()
+                } else {
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            }
+    }
+
 
     fun goToSlopes() {
         val intent = Intent(this, MainActivity::class.java)

@@ -85,7 +85,7 @@ dependencies {
     implementation ("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     kapt ("com.google.dagger:hilt-android-compiler:2.44")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-
+    implementation ("com.google.android.gms:play-services-auth:20.4.0")
 
 
 }
