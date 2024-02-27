@@ -13,6 +13,16 @@
         android:theme="@style/Theme.SkiStation"
         tools:targetApi="31">
         <activity
+            android:name=".SlopesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_slopes"
+            android:theme="@style/Theme.SkiStation" />
+        <activity
+            android:name=".LiftsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_lifts"
+            android:theme="@style/Theme.SkiStation" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
