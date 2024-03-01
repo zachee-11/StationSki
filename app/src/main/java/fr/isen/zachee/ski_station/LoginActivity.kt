@@ -121,16 +121,16 @@ class LoginActivity : ComponentActivity() {
             )
             Column(
                 Modifier
-                    .padding(start = 16.dp, top = 16.dp)
+                    .padding(start = 4.dp, top = 16.dp)
                     .padding(horizontal = 16.dp)
                     .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.em),
+                    painter = painterResource(id = R.drawable.stationski),
                     contentDescription = null,
-                    Modifier.size(100.dp)
+                    Modifier.size(250.dp)
                 )
                 Text(
                     text = "Log In",
