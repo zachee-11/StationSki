@@ -8,12 +8,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -103,35 +106,38 @@ fun DisplaySlopes() {
 
     LazyColumn {
         //items(sortedSlopes) {slope ->
-        items(items =sortedSlopes, key = { it.name }) {slope ->
-            Row (
-                verticalAlignment = Alignment.CenterVertically,
+        items(items = slopes.sortedBy { slope ->
+            mapOf("green" to 1, "blue" to 2, "red" to 3, "black" to 4)[slope.color] ?: 5
+        }, key = { it.name }) { slope ->
+            Card(
                 modifier = Modifier
-                    .padding(all = 8.dp)
-
-            ){
-                Text(
-                    text = slope.name,
-                    modifier = Modifier.weight(1f),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                // Affichage du statut de la piste
-                Text(
-                    if (slope.status ?: false) "✅" else "❌",
-                    color = if (slope.status ?: false) Color.Green else Color.Red,
+                    .padding(8.dp)
+                    .fillMaxWidth()
+            ) {
+                Row(
                     modifier = Modifier
-                        .weight(1f)
-                        .clickable{
-                            toggleSlopeStatus(slope.name, !slope.status)
-                        }
-
-                )
-            Box(
-                modifier = Modifier
-                    .padding(start = 8.dp)
-                    .size(24.dp)
-                    .background(color = stringToColor(slope.color), shape = CircleShape)
-            )
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = slope.name,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Spacer(Modifier.weight(1f)) // This pushes the name to the left and status to the right
+                    Box(
+                        modifier = Modifier
+                            .size(16.dp)
+                            .background(color = stringToColor(slope.color), shape = CircleShape)
+                    )
+                    Spacer(Modifier.weight(1f)) // This will keep the color in the middle
+                    Text(
+                        text = if (slope.status) "✅" else "❌",
+                        color = if (slope.status) Color.Green else Color.Red,
+                        modifier = Modifier
+                            .clickable { toggleSlopeStatus(slope.name, !slope.status) }
+                    )
+                }
             }
         }
     }

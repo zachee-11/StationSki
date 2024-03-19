@@ -2,4 +2,6 @@
     <string name="app_name">Ski-Station</string>
     <string name="title_activity_lifts">LiftsActivity</string>
     <string name="title_activity_slopes">SlopesActivity</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>

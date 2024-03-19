@@ -5,23 +5,21 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -33,14 +31,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import fr.isen.zachee.ski_station.ui.theme.SkiStationTheme
-import java.io.Serializable
 
-class LiftsActivity : ComponentActivity() {
+class DetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val selectedLift = intent.getStringExtra("selected_Lift")
+
         setContent {
             SkiStationTheme {
                 // A surface container using the 'background' color from the theme
@@ -48,44 +46,72 @@ class LiftsActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DisplayLifts()
+                    if (selectedLift != null) {
+                        //Greeting(selectedLift)
+                        DisplayLifts2(selectedLift)
+                    }
+
                 }
             }
         }
-        Log.d("lifeCycle", "Lift Activity - OnCreate")
+        Log.d("lifeCycle", "Detail Activity - OnCreate")
     }
 
     override fun onPause() {
-        Log.d("lifeCycle", "Lift Activity - OnPause")
+        Log.d("lifeCycle", "Detail Activity - OnPause")
         super.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("lifeCycle", "Lift Activity - OnResume")
+        Log.d("lifeCycle", "Detail Activity - OnResume")
     }
 
     override fun onDestroy() {
-        Log.d("lifeCycle", "Lift Activity - onDestroy")
+        Log.d("lifeCycle", "Detail Activity - onDestroy")
         super.onDestroy()
     }
 
 }
 
 @Composable
-fun GetLiftsData(lifts: SnapshotStateList<Lift>) {
-    SkiDatabase.database.getReference("lifts")
-        .addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val _lifts = snapshot.children.mapNotNull {
-                    val lift = it.getValue(Lift::class.java)
-                    val slopes = it.child("theSlopes").children.mapNotNull { it.getValue(NameSlopes::class.java) }
-                    lift?.listslopes = slopes
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
 
-                    return@mapNotNull lift
+
+@Composable
+fun GetSlopesForSelectedLift(selectedLift: String, slopesDetails: SnapshotStateList<NameSlopes>) {
+    SkiDatabase.database.getReference("lifts/$selectedLift/theSlopes")
+        .addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val slopesNames = snapshot.children.mapNotNull { child ->
+                    child.getValue(NameSlopes::class.java)
                 }
-                lifts.removeAll { true }
-                lifts.addAll(_lifts)
+                slopesDetails.clear()
+                slopesDetails.addAll(slopesNames)
+
+               /* slopesNames.forEach { slopeName ->
+                    SkiDatabase.database.getReference("slopes/$slopeName")
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(slopeSnapshot: DataSnapshot) {
+                                val status = slopeSnapshot.child("status").getValue(Boolean::class.java) ?: false
+                                val slopeDetail = NameSlopes(slopeName.name, status)
+                                slopesDetails.add(slopeDetail)
+
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Log.e("databaseError", error.toString())
+                            }
+
+                        })
+                }*/
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -94,23 +120,20 @@ fun GetLiftsData(lifts: SnapshotStateList<Lift>) {
         })
 }
 
+
 @Composable
-fun DisplayLifts() {
+fun DisplayLifts2(selectedLiftName: String) {
     val context = LocalContext.current
-    val lifts = remember { mutableStateListOf<Lift>() }
-    GetLiftsData(lifts)
+    val slopes = remember { mutableStateListOf<NameSlopes>() }
+    GetSlopesForSelectedLift(selectedLiftName, slopes )
 
     LazyColumn {
-        items(items = lifts, key = { it.name }) { lift ->
+        items(items = slopes, key = { it.name }) { slopes ->
             Card(
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
-                    .clickable {
-                        val intent = Intent(context,DetailActivity::class.java)
-                        intent.putExtra("selected_Lift", lift.name )
-                        context.startActivity(intent)
-                    }
+
             ) {
                 Row(
                     modifier = Modifier
@@ -119,21 +142,12 @@ fun DisplayLifts() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = lift.name,
+                        text = slopes.name,
+                       // text = "${slopes.name} - Status: ${if (slopes.status) "Open" else "Closed"}" ,
                         modifier = Modifier.weight(1f),
                         style = MaterialTheme.typography.bodyMedium
                     )
-                    Spacer(Modifier.weight(1f)) // This will push the name to the left and status to the right
-                    Text(
-                        if (lift.status ?: false) "✅" else "❌",
-                        color = if (lift.status ?: false) Color.Green else Color.Red,
-                        modifier = Modifier
-                            .weight(1f)
-                            .clickable{
-                                toggleLiftStatus(lift.name, !lift.status)
-                            }
 
-                    )
                 }
             }
         }
@@ -144,28 +158,3 @@ fun DisplayLifts() {
 
 
 
-
-
-fun toggleLiftStatus(liftName: String, newStatus: Boolean) {
-    // Obtenir une référence à votre base de données Firebase
-    val databaseReference = FirebaseDatabase.getInstance().getReference("lifts")
-
-    // Mettre à jour le statut de la piste spécifique
-    databaseReference.child(liftName).child("status").setValue(newStatus)
-        .addOnSuccessListener {
-            // Gestion de succès
-            Log.d("UpdateStatus", "Status updated successfully for slope: $liftName")
-        }
-        .addOnFailureListener {
-            // Gestion d'erreur
-            Log.e("UpdateStatus", "Failed to update status for slope: $liftName", it)
-        }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview2() {
-    SkiStationTheme {
-        DisplayLifts()
-    }
-}
