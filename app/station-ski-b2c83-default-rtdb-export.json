@@ -6,180 +6,286 @@
   },
   "lifts": {
     "Bouticari": {
-      "name": "Bouticari",
-      "status": true
+      "paths": {
+        "Bouticari Bleu": "",
+        "Bouticari Rouge": "",
+        "Bouticari vert": "",
+        "Le Forest": ""
+      },
+      "status": false,
+      "theSlopes": {
+        "Bouticari Bleu": {
+          "name": "Bouticari Bleu"
+        },
+        "Bouticari Vert": {
+          "name": "Bouticari Vert"
+        },
+        "La Rouge Bouticari": {
+          "name": "La Rouge Bouticari"
+        },
+        "Le Forest": {
+          "name": "Le Forest"
+        }
+      }
     },
     "La Burge": {
       "name": "La Burge",
-      "status": true
+      "paths": {
+        "Le Chamois": "",
+        "Les Jockeys": "",
+        "s du chamois": ""
+      },
+      "status": false,
+      "theSlopes": {
+        "Le Chamois": {
+          "name": "Le Chamois"
+        },
+        "Les Jockeys": {
+          "name": "Les Jockeys"
+        },
+        "S Du Chamois": {
+          "name": "S Du Chamois"
+        }
+      }
     },
     "La Troika": {
       "name": "La Troika",
-      "status": false
+      "paths": {
+        "La Monthery": ""
+      },
+      "status": false,
+      "theSlopes": {
+        "Les Ramiers": {
+          "name": "Les Ramiers"
+        }
+      }
     },
     "Le Beauregard": {
+      "TheSlopes": {
+        "La Mandarine": {
+          "name": "La Mandarine"
+        },
+        "Le Lievre": {
+          "name": "Le Lievre"
+        },
+        "Le Tetras": {
+          "name": "Le Tetras"
+        },
+        "Les Lampions": {
+          "name": "Les Lampions"
+        },
+        "name": "La Mandarine"
+      },
       "name": "Le Beauregard",
-      "status": true
+      "paths": {
+        "Le Lièvre": "",
+        "Les Lampions": ""
+      },
+      "status": false
     },
     "Le Beauregard 2": {
       "name": "Le Beauregard 2",
-      "status": true
+      "paths": {
+        "L'Ecureuil": "",
+        "Le Gourq": ""
+      },
+      "status": true,
+      "theSlopes": {
+        "L'Ecureuil": {
+          "name": "L'Ecureuil"
+        },
+        "Le Gourq": {
+          "name": "Le Gourq"
+        }
+      }
     },
     "Le Grand Serre": {
       "name": "Le Grand Serre",
-      "status": true
+      "paths": {
+        "La Draye": ""
+      },
+      "status": false,
+      "theSlopes": {
+        "La Draye": {
+          "name": "La Draye"
+        },
+        "La Gerabio": {
+          "name": "La Gerabio"
+        },
+        "Les Sangnieres": {
+          "name": "Les Sangnieres"
+        }
+      }
     },
     "Le Moulin": {
       "name": "Le Moulin",
-      "status": false
+      "status": false,
+      "theSlopes": {
+        "Les Nbettes": {
+          "name": "Les Nbettes"
+        },
+        "Les Rhodos": {
+          "name": "Les Rhodos"
+        }
+      }
     },
     "Les Amoureux": {
-      "name": " Les Amoureux",
-      "status": true
+      "name": "Les Amoureux",
+      "status": false,
+      "theSlopes": {
+        "Les Casses": {
+          "name": "Les Casses"
+        }
+      }
     },
-    "Les Cassettes ": {
+    "Les Cassettes": {
       "name": "Les Cassettes",
-      "status ": true
+      "status": false,
+      "theSlopes": {
+        "Barrigart": {
+          "name": "Barrigart"
+        },
+        "L'Inglin": {
+          "name": "L'Inglin"
+        },
+        "L'Ousselat": {
+          "name": "L'Ousselat"
+        },
+        "Pre Mean": {
+          "name": "Pre Mean"
+        }
+      }
     },
     "Les Torres": {
       "name": "Les Torres",
-      "status": true
+      "status": false,
+      "theSlopes": {
+        "Les Bambinos": {
+          "name": "Les Bambinos"
+        }
+      }
     },
     "Ste Marie Madeleine": {
       "name": "Ste Marie Madeleine",
-      "status": true
+      "status": false,
+      "theSlopes": {
+        "L'Arbre": {
+          "name": "L'Arbre"
+        },
+        "Les Clouzeaux": {
+          "name": "Les Clouzeaux"
+        }
+      }
     }
   },
   "slopes": {
     "Bouticari Bleu": {
       "color": "blue",
-      "lifts": "Bouticari",
       "name": "Bouticari Bleu",
       "status": true
     },
     "Bouticari Vert": {
       "color": "green",
-      "lifts": "Bouticari",
       "name": "Bouticari Vert",
       "status": true
     },
     "Jonction Basse": {
       "color": "green",
-      "lifts": "Bouticari",
       "name": "Jonction Basse",
       "status": true
     },
     "L'Arbre": {
       "color": "blue",
-      "lifts": "Ste Marie Madeleine",
-      "name": "L' Arbre",
+      "name": "L'Arbre",
       "status": true
     },
     "L'Ecureuil": {
       "color": "red",
-      "lifts": "Le Beauregard 2",
       "name": "L'Ecureuil",
       "status": true
     },
     "L'Inglin": {
       "color": "blue",
-      "lifts": "Les Cassettes",
-      "name": "L' Inglin",
+      "name": "L'Inglin",
       "status": true
     },
     "L'Ousselat": {
       "color": "red",
-      "lifts": "Les Cassettes",
-      "name": "L' Ousselat",
+      "name": "L'Ousselat",
       "status": true
     },
     "La Draye": {
       "color": "red",
-      "lifts": "Le Grand Serre",
       "name": "La Draye",
       "status": true
     },
     "La Gerabio": {
       "color": "blue",
-      "lifts": "Le Grand Serre",
       "name": "La Gerabio",
       "status": true
     },
     "La Mandarine": {
       "color": "red",
-      "lifts": "Le Beauregard",
       "name": "La Mandarine",
       "status": true
     },
     "La Monthery": {
       "color": "green",
-      "lifts": "Le Moulin",
       "name": "La Monthery",
       "status": true
     },
     "La Rouge Bouticari": {
       "color": "red",
-      "lifts": "Bouticari",
       "name": "La Rouge Bouticari",
       "status": true
     },
     "Le Chamois": {
       "color": "red",
-      "lifts": "La Burge",
       "name": "Le Chamois",
       "status": true
     },
     "Le Forest": {
       "color": "green",
-      "lifts": "Bouticari",
       "name": "Le Forest",
       "status": true
     },
     "Le Gourq": {
       "color": "blue",
-      "lifts": "Le Beauregard 2",
       "name": "Le Gourq",
       "status": true
     },
     "Le Lievre": {
       "color": "black",
-      "lifts": "Le Beauregard",
       "name": "Le Lievre",
       "status": true
     },
     "Le Tetras": {
       "color": "black",
-      "lifts": "Le Beauregard",
       "name": "Le Tetras",
       "status": true
     },
     "Les Bambinos": {
       "color": "green",
-      "lifts": "Les Torres",
       "name": "Les Bambinos",
       "status": true
     },
     "Les Casses": {
       "color": "blue",
-      "lifts": "Les Amoureux",
       "name": "Les Casses",
       "status": true
     },
     "Les Clouzeaux": {
       "color": "blue",
-      "lifts": "Le Beauregard 2",
       "name": "Les Clouzeaux",
       "status": true
     },
     "Les Jockeys": {
       "color": "red",
-      "lifts": "La Burge",
       "name": "Les Jockeys",
       "status": true
     },
     "Les Lampions": {
       "color": "blue",
-      "lifts": "Ste Marie Madeleine",
       "name": "Les Lampions",
       "status": true
     },
@@ -190,42 +296,27 @@
     },
     "Les Ramiers": {
       "color": "green",
-      "lifts": "Le Moulin",
       "name": "Les Ramiers",
       "status": true
     },
     "Les Rhodos": {
       "color": "blue",
-      "lifts": "Le Moulin",
       "name ": "Les Rhodos",
       "status": true
     },
     "Les Sagnières": {
       "color": "red",
-      "lifts": "Le Grand Serre",
       "name": "Les Sagnières",
       "status": true
     },
     "Pre Mean": {
       "color": "red",
-      "lifts": "Les Cassettes",
       "name": "Pre Mean",
       "status": true
     },
     "S du Chamois": {
       "color": "blue",
-      "lifts": "la Burge",
       "name": "S du Chamois",
-      "status": true
-    },
-    "false": {
-      "color": "red",
-      "name": "le chamois",
-      "status": false
-    },
-    "true": {
-      "color": "red",
-      "name": "le chamois",
       "status": true
     }
   },
