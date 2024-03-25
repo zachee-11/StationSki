@@ -116,7 +116,7 @@ fun GreetingSlope() {
                         modifier = Modifier.weight(1f)
                     )
                 }
-                Divider()
+
             }
         }
     }
