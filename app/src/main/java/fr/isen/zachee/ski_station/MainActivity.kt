@@ -185,11 +185,11 @@ class MainActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(onClick = { startActivity(Intent(this@MainActivity, SlopesActivity::class.java)) }) {
-                Text("Montés")
+                Text("Slopes")
             }
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = { startActivity(Intent(this@MainActivity, LiftsActivity::class.java)) }) {
-                Text("Pistes")
+                Text("Lifts")
             }
         }
     }
