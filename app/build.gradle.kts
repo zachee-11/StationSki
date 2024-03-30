@@ -51,13 +51,6 @@ android {
 }
 
 
-
-
-
-
-
-
-
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -95,6 +88,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
-    implementation ("com.google.firebase:firebase-database-ktx:20.3.0")
+    implementation ("com.google.firebase:firebase-database-ktx:20.3.1")
 
 }
