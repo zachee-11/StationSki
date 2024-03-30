@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -41,10 +42,14 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -91,6 +96,66 @@ class MainActivity : ComponentActivity() {
         }
         Log.d("lifeCycle", "Home Activity - OnCreate")
 
+    }
+
+    @Composable
+    fun BackgroundImageComponent() {
+        Image(
+            painter = painterResource(id = R.drawable.home_fond),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
+        )
+    }
+
+    @Composable
+    fun LogoComponent() {
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = null,
+            modifier = Modifier
+                .size(100.dp, 80.dp)
+        )
+        Text(
+            text = stringResource(R.string.app_name),
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontSize = 45.sp,
+                color = Color.White
+            )
+        )
+    }
+
+    @Composable
+    fun ImagesComponent() {
+        Row {
+            Image(
+                painter = painterResource(id = R.drawable.home),
+                contentDescription = null,
+                modifier = Modifier.size(80.dp, 50.dp)
+            )
+            Spacer(modifier = Modifier.width(0.dp))
+            Image(
+                painter = painterResource(id = R.drawable.account),
+                contentDescription = null,
+                modifier = Modifier.size(80.dp, 50.dp)
+            )
+        }
+    }
+    @Composable
+    fun ButtonsComponent() {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Button(onClick = { startActivity(Intent(this@MainActivity, SlopesActivity::class.java)) }) {
+                Text("Montés")
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = { startActivity(Intent(this@MainActivity, LiftsActivity::class.java)) }) {
+                Text("Pistes")
+            }
+        }
     }
     override fun onPause() {
         Log.d("lifeCycle", "Home Activity - OnPause")
