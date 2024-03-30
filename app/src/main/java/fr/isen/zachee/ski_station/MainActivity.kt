@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -84,14 +85,49 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SkiStationTheme {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    // Ajoutez l'image en tant que fond
+                    BackgroundImageComponent()
 
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MainScreen()
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        fetchAndDisplayImages(LocalContext.current)
+                        //fetchAndDisplayVideos(LocalContext.current)
+                    }
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.BottomCenter
+                    ) {
+
+                        fetchAndDisplayVideos(LocalContext.current)
+                    }
+
+                    Column {
+                        // Row pour le logo et les icônes à droite du logo
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 2.dp), // Espacement depuis le bord de l'écran
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            LogoComponent()
+                            ImagesComponent()
+                        }
+
+                        // Espace entre le logo et les boutons
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // Boutons au centre mais sous le logo
+                        ButtonsComponent()
+                    }
                 }
+
             }
         }
         Log.d("lifeCycle", "Home Activity - OnCreate")
