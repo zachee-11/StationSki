@@ -50,6 +50,14 @@ android {
     }
 }
 
+
+
+
+
+
+
+
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -58,9 +66,12 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
+    implementation ("io.coil-kt:coil-compose:2.5.0")
+    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("com.google.firebase:firebase-database:20.3.0")
+    implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation("com.android.volley:volley:1.2.1")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("com.google.accompanist:accompanist-navigation-animation:0.20.2")
