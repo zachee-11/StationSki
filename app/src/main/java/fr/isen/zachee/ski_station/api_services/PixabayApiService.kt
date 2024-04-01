@@ -1,13 +1,11 @@
-package fr.isen.zachee.ski_station
+package fr.isen.zachee.ski_station.api_services
 
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
-import java.net.URLEncoder
 
 class PixabayApiService(private val context: Context) {
     companion object {

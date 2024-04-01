@@ -1,87 +1,67 @@
-package fr.isen.zachee.ski_station
+package fr.isen.zachee.ski_station.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.material3.Text
+
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import com.google.firebase.ktx.Firebase
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
+import android.util.Log
+import android.widget.Toast
+import android.content.Intent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import fr.isen.zachee.ski_station.activity.HomeActivity
-import fr.isen.zachee.ski_station.activity.SignUpActivity
+import androidx.compose.ui.platform.LocalContext
+import fr.isen.zachee.ski_station.MainActivity
+import fr.isen.zachee.ski_station.R
 
 @OptIn(ExperimentalMaterial3Api::class)
-
-class MainActivity : ComponentActivity() {
+class SignUpActivity : ComponentActivity() {
     private  lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
-    private val RC_SIGN_IN = 100
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         auth = Firebase.auth
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
 
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-
-        }
         setContent {
-
             var email by remember { mutableStateOf("") }
             remember { mutableStateOf(TextFieldValue("")) }
             var password by remember { mutableStateOf("") }
@@ -90,21 +70,8 @@ class MainActivity : ComponentActivity() {
             var errorP by remember { mutableStateOf(false) }
             var passwordVisibility by remember { mutableStateOf(false) }
             var plength by remember { mutableStateOf(false) }
-            val context = LocalContext.current
-            val googleSignInLauncher = rememberLauncherForActivityResult(
-                contract = ActivityResultContracts.StartActivityForResult()
-            ) { result ->
-                if (result.resultCode == RESULT_OK) {
-                    val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                    try {
-                        val account = task.getResult(ApiException::class.java)
-                        firebaseAuthWithGoogle(account.idToken!!)
-                    } catch (e: ApiException) {
-                        Log.w("LoginActivity", "Google sign in failed", e)
-                    }
-                }
-            }
 
+            val context = LocalContext.current
 
             Image(
                 painter = painterResource(id = R.drawable.rd),
@@ -126,7 +93,7 @@ class MainActivity : ComponentActivity() {
                     Modifier.size(250.dp)
                 )
                 Text(
-                    text = "Connexion",
+                    text = "Inscription",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 40.sp
@@ -166,18 +133,8 @@ class MainActivity : ComponentActivity() {
                     },
 
                     keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Email,
-                        autoCorrect = false,
+                        imeAction = ImeAction.Next
                     ),
-                    keyboardActions = KeyboardActions(
-                        onNext = {
-                            if (!email.endsWith(".com")) {
-                                email += ".com"
-                            }
-                        }
-                    ),
-
                     singleLine = true,
                     textStyle = TextStyle(
                         color = Color.White,
@@ -211,7 +168,7 @@ class MainActivity : ComponentActivity() {
                 }
                 if (plength) {
                     Text(
-                        text = "Mot de passe: aumoins 6 caracters",
+                        text = "Mot de passe: aumoins 6 caractères",
                         color = Color.Red,
                         modifier = Modifier.padding(end = 100.dp)
                     )
@@ -224,7 +181,7 @@ class MainActivity : ComponentActivity() {
                         plength = it.length < 6
                     },
                     label = {
-                        Text(text = "Mot de passe *")
+                        Text(text = "Password *")
                     },
                     leadingIcon = {
                         Icon(
@@ -280,79 +237,44 @@ class MainActivity : ComponentActivity() {
                         unfocusedTrailingIconColor = Color.White
                     )
                 )
-
                 OutlinedButton(onClick = {
                     if (email.isEmpty() || password.isEmpty()) {
                         emailError = email.isEmpty()
                         errorP = password.isEmpty()
                         return@OutlinedButton
                     }
-                    connection(
-                        email,
-                        password
-                    )
-                }) {
-                    Text("Se Connecter")
-                }
-                TextButton(onClick = {
-                    val intent = Intent(context, SignUpActivity::class.java)
-                    startActivity(intent)
-                }) {
+                    register(email, password) }) {
                     Text("S'inscrire")
                 }
-                TextButton(
-                    onClick = {
-
-                        val signInIntent = googleSignInClient.signInIntent
-                        googleSignInLauncher.launch(signInIntent)
-                    },
-                    modifier = Modifier.padding(4.dp)
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.google),
-                        contentDescription = "Sign in with Google",
-                        modifier = Modifier.size(30.dp)
-                    )
+                TextButton(onClick = {
+                    val intent = Intent(context, MainActivity::class.java)
+                    startActivity(intent)
+                }) {
+                    Text("Connexion")
                 }
+
             }
         }
     }
-    fun connection(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
+
+    fun register(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     goToSlopes()
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("auth", "signInWithEmail:failure", task.exception)
+                    Log.w("auth", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext,
-                        "email ou mot de passe incorrect",
+                        "email ou mot de passe incorrect.",
                         Toast.LENGTH_SHORT,
                     ).show()
                 }
             }
     }
-
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    goToSlopes()
-                } else {
-                    Toast.makeText(
-                        baseContext,
-                        "email ou mot de passe incorrect",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                }
-            }
-    }
-
-
     fun goToSlopes() {
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

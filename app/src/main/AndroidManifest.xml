@@ -13,27 +13,29 @@
         android:theme="@style/Theme.SkiStation"
         tools:targetApi="31">
         <activity
-            android:name=".ui.theme.Main2Activity"
-            android:exported="false"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.SkiStation" />
+            android:name=".activity.ResetPasswordActivity"
+            android:exported="false" />
         <activity
-            android:name=".MainActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.SkiStation" />
+            android:name=".activity.HomeActivity"
+            android:exported="false" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".activity.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DetailActivity"
             android:exported="false"
             android:label="@string/title_activity_detail"
             android:theme="@style/Theme.SkiStation" />
         <activity
-            android:name=".SlopesActivity"
+            android:name=".activity.SlopesActivity"
             android:exported="false"
             android:label="@string/title_activity_slopes"
             android:theme="@style/Theme.SkiStation" />
         <activity
-            android:name=".LiftsActivity"
+            android:name=".activity.LiftsActivity"
             android:exported="false"
             android:label="@string/title_activity_lifts"
             android:theme="@style/Theme.SkiStation" />

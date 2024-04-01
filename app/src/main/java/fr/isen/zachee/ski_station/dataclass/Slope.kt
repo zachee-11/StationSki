@@ -1,4 +1,4 @@
-package fr.isen.zachee.ski_station
+package fr.isen.zachee.ski_station.dataclass
 
 import kotlin.random.Random
 

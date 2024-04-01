@@ -1,4 +1,4 @@
-package fr.isen.zachee.ski_station
+package fr.isen.zachee.ski_station.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -57,12 +57,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import fr.isen.zachee.ski_station.activity.HomeActivity
-import fr.isen.zachee.ski_station.activity.SignUpActivity
+import fr.isen.zachee.ski_station.MainActivity
+import fr.isen.zachee.ski_station.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 
-class MainActivity : ComponentActivity() {
+class LoginActivity : ComponentActivity() {
     private  lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 100
@@ -86,8 +86,8 @@ class MainActivity : ComponentActivity() {
             remember { mutableStateOf(TextFieldValue("")) }
             var password by remember { mutableStateOf("") }
             val emty by remember { mutableStateOf("") }
-            var emailError by remember { mutableStateOf(false) }
             var errorP by remember { mutableStateOf(false) }
+            var emailError by remember { mutableStateOf(false) }
             var passwordVisibility by remember { mutableStateOf(false) }
             var plength by remember { mutableStateOf(false) }
             val context = LocalContext.current
@@ -126,7 +126,7 @@ class MainActivity : ComponentActivity() {
                     Modifier.size(250.dp)
                 )
                 Text(
-                    text = "Connexion",
+                    text = "Log In",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 40.sp
@@ -134,7 +134,7 @@ class MainActivity : ComponentActivity() {
                 Spacer(modifier = Modifier.height(40.dp))
                 if (emailError) {
                     Text(
-                        text = " Entrez votre email *",
+                        text = " Enter Email.",
                         color = Color.Red,
                         modifier = Modifier.padding(end = 60.dp)
                     )
@@ -146,7 +146,7 @@ class MainActivity : ComponentActivity() {
                         emailError = it.isEmpty()
                     },
                     label = {
-                        Text(text = "Email *")
+                        Text(text = "Email")
                     },
 
 
@@ -204,14 +204,14 @@ class MainActivity : ComponentActivity() {
                 Spacer(modifier = Modifier.height(30.dp))
                 if (errorP) {
                     Text(
-                        text = "Entrez votre mot de passe *",
+                        text = "Entre Password",
                         color = Color.Red,
                         modifier = Modifier.padding(end = 100.dp)
                     )
                 }
                 if (plength) {
                     Text(
-                        text = "Mot de passe: aumoins 6 caracters",
+                        text = "Password must be 6 characters",
                         color = Color.Red,
                         modifier = Modifier.padding(end = 100.dp)
                     )
@@ -224,7 +224,7 @@ class MainActivity : ComponentActivity() {
                         plength = it.length < 6
                     },
                     label = {
-                        Text(text = "Mot de passe *")
+                        Text(text = "Password")
                     },
                     leadingIcon = {
                         Icon(
@@ -292,13 +292,13 @@ class MainActivity : ComponentActivity() {
                         password
                     )
                 }) {
-                    Text("Se Connecter")
+                    Text("Connexion")
                 }
                 TextButton(onClick = {
                     val intent = Intent(context, SignUpActivity::class.java)
                     startActivity(intent)
                 }) {
-                    Text("S'inscrire")
+                    Text("Register")
                 }
                 TextButton(
                     onClick = {
@@ -327,7 +327,7 @@ class MainActivity : ComponentActivity() {
                     Log.w("auth", "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext,
-                        "email ou mot de passe incorrect",
+                        "Authentication failed.",
                         Toast.LENGTH_SHORT,
                     ).show()
                 }
@@ -343,7 +343,7 @@ class MainActivity : ComponentActivity() {
                 } else {
                     Toast.makeText(
                         baseContext,
-                        "email ou mot de passe incorrect",
+                        "Authentication failed.",
                         Toast.LENGTH_SHORT,
                     ).show()
                 }
@@ -352,7 +352,7 @@ class MainActivity : ComponentActivity() {
 
 
     fun goToSlopes() {
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

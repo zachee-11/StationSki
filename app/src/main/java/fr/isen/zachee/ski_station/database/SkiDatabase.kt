@@ -1,4 +1,4 @@
-package fr.isen.zachee.ski_station
+package fr.isen.zachee.ski_station.database
 
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
