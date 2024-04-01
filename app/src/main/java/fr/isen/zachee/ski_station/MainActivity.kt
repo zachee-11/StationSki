@@ -54,7 +54,18 @@ class MainActivity : ComponentActivity() {
                             startActivity(intent)
                         }) {
                             val image: Painter = painterResource(id = R.drawable.unlock)
-                            Image(painter = image, contentDescription = "Se déconnecter",modifier = Modifier.size(16.dp))
+                            Image(painter = image, contentDescription = "Se déconnecter",modifier = Modifier.size(22.dp))
+                        }
+                        IconButton(onClick = {
+                            val intent = Intent(context, ProfileActivity::class.java)
+                            startActivity(intent)
+                        }) {
+                            val profileImage: Painter = painterResource(id = R.drawable.profile_icon)
+                            Image(
+                                painter = profileImage,
+                                contentDescription = "Voir le profil",
+                                modifier = Modifier.size(22.dp)
+                            )
                         }
                     }
 

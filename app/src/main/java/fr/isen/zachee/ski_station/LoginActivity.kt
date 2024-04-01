@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.compose.material3.Text
+
 import dagger.hilt.android.AndroidEntryPoint
 
 import com.google.firebase.auth.FirebaseAuth
@@ -66,6 +67,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import com.google.android.gms.common.api.ApiException
+import androidx.compose.runtime.MutableState
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 class LoginActivity : ComponentActivity() {
@@ -89,6 +92,7 @@ class LoginActivity : ComponentActivity() {
         setContent {
 
             var email by remember { mutableStateOf("") }
+            var emailError by remember { mutableStateOf(false) }
             val passwordValue = remember { mutableStateOf(TextFieldValue("")) }
             var password by remember { mutableStateOf("") }
             val emty by remember { mutableStateOf("") }
@@ -96,6 +100,7 @@ class LoginActivity : ComponentActivity() {
             var errorP by remember { mutableStateOf(false) }
             var passwordVisibility by remember { mutableStateOf(false) }
             var cpasswordVisibility by remember { mutableStateOf(false) }
+
             var plength by remember { mutableStateOf(false) }
             val context = LocalContext.current
             val googleSignInLauncher = rememberLauncherForActivityResult(
@@ -130,7 +135,7 @@ class LoginActivity : ComponentActivity() {
                 Image(
                     painter = painterResource(id = R.drawable.stationski),
                     contentDescription = null,
-                    Modifier.size(250.dp)
+                    Modifier.size(180.dp)
                 )
                 Text(
                     text = "Log In",
@@ -138,12 +143,27 @@ class LoginActivity : ComponentActivity() {
                     fontWeight = FontWeight.Bold,
                     fontSize = 40.sp
                 )
-                Spacer(modifier = Modifier.height(40.dp))
-
+                Spacer(modifier = Modifier.height(20.dp))
+               /* if (errorMessageState != null) {
+                    // Afficher le message d'erreur en bas de l'écran en rouge
+                   Text(
+                        text = errorMessageState!!,
+                        color = Color.Red,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                }*/
+                if (emailError) { // Afficher le message d'erreur uniquement si le champ email est vide
+                    Text(
+                        text = " Enter Email.",
+                        color = Color.Red,
+                        modifier = Modifier.padding(end = 60.dp)
+                    )
+                }
                 TextField(
                     value = email,
                     onValueChange = {
                         email = it
+                        emailError = it.isEmpty()
                     },
                     label = {
                         Text(text = "Email")
@@ -201,12 +221,13 @@ class LoginActivity : ComponentActivity() {
                         unfocusedTrailingIconColor = Color.White
                     )
                 )
+
                 Spacer(modifier = Modifier.height(30.dp))
                 if (errorP) {
                     Text(
-                        text = "Entre Password",
+                        text = "Enter Password",
                         color = Color.Red,
-                        modifier = Modifier.padding(end = 100.dp)
+                        modifier = Modifier.padding(end = 60.dp)
                     )
                 }
                 if (plength) {
@@ -220,6 +241,7 @@ class LoginActivity : ComponentActivity() {
                     value = password,
                     onValueChange = {
                         password = it
+                        errorP = it.isEmpty()
                         plength = it.length < 6
                     },
                     label = {
@@ -279,20 +301,36 @@ class LoginActivity : ComponentActivity() {
                         unfocusedTrailingIconColor = Color.White
                     )
                 )
-
+                Text(
+                    "Forgot your password?",
+                    style = TextStyle(color = Color.Yellow),
+                    modifier = Modifier.clickable {
+                        val intent = Intent(context, ResetPasswordActivity::class.java)
+                        startActivity(intent)
+                    }
+                )
                 OutlinedButton(onClick = {
+                    if (email.isEmpty() || password.isEmpty()) {
+                        // Mettre à jour l'état d'erreur du champ password si nécessaire
+                        emailError = email.isEmpty()
+                        errorP = password.isEmpty()
+                        return@OutlinedButton
+                    }
                     connection(
                         email,
                         password
                     )
-                }) {
-                    Text("Connexion")
+                },
+                    modifier = Modifier.padding(8.dp)
+
+                ) {
+                    Text("Connexion",style = TextStyle(fontSize = 20.sp,fontWeight = FontWeight.Bold ))
                 }
                 TextButton(onClick = {
                     val intent = Intent(context, SignUpActivity::class.java)
                     startActivity(intent)
                 }) {
-                    Text("Register")
+                    Text("Register",style = TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Bold ))
                 }
                 TextButton(
                     onClick = {
@@ -305,25 +343,38 @@ class LoginActivity : ComponentActivity() {
                     Image(
                         painter = painterResource(id = R.drawable.google),
                         contentDescription = "Sign in with Google",
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(50.dp)
                     )
                 }
             }
         }
     }
+
+
     fun connection(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     goToSlopes()
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("auth", "signInWithEmail:failure", task.exception)
+                    /*val errorMessage = task.exception?.message ?: "Unknown error"
+
+                    // Déterminer le type d'erreur (erreur d'email ou erreur de mot de passe)
+                    val errorType = if (errorMessage.contains("password")) {
+                        "password"
+                    } else if (errorMessage.contains("email")) {
+                        "email"
+                    } else {
+                        "unknown"
+                    }
+                //    errorMessageState = errorMessage*/
                     Toast.makeText(
                         baseContext,
                         "Authentication failed.",
                         Toast.LENGTH_SHORT,
                     ).show()
+
+                    Log.w("auth", "signInWithEmail:failure", task.exception)
                 }
             }
     }

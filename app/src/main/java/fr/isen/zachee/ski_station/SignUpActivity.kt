@@ -66,6 +66,7 @@ class SignUpActivity : ComponentActivity() {
 
         setContent {
             var email by remember { mutableStateOf("") }
+            var emailError by remember { mutableStateOf(false) }
             val passwordValue = remember { mutableStateOf(TextFieldValue("")) }
             var password by remember { mutableStateOf("") }
             val emty by remember { mutableStateOf("") }
@@ -94,7 +95,7 @@ class SignUpActivity : ComponentActivity() {
                 Image(
                     painter = painterResource(id = R.drawable.stationski),
                     contentDescription = null,
-                    Modifier.size(250.dp)
+                    Modifier.size(180.dp)
                 )
                 Text(
                     text = "Sign uP",
@@ -102,12 +103,19 @@ class SignUpActivity : ComponentActivity() {
                     fontWeight = FontWeight.Bold,
                     fontSize = 40.sp
                 )
-                Spacer(modifier = Modifier.height(40.dp))
-
+                Spacer(modifier = Modifier.height(30.dp))
+                if (emailError) { // Afficher le message d'erreur uniquement si le champ email est vide
+                    Text(
+                        text = "Enter Email",
+                        color = Color.Red,
+                        modifier = Modifier.padding(end = 60.dp)
+                    )
+                }
                 TextField(
                     value = email,
                     onValueChange = {
                         email = it
+                        emailError = it.isEmpty()
                     },
                     label = {
                         Text(text = "Email")
@@ -155,25 +163,27 @@ class SignUpActivity : ComponentActivity() {
                         unfocusedTrailingIconColor = Color.White
                     )
                 )
+
                 Spacer(modifier = Modifier.height(30.dp))
                 if (errorP) {
                     Text(
-                        text = "Entre Password",
+                        text = "Enter Password",
                         color = Color.Red,
-                        modifier = Modifier.padding(end = 100.dp)
+                        modifier = Modifier.padding(end = 60.dp)
                     )
                 }
                 if (plength) {
                     Text(
                         text = "Password must be 6 characters",
                         color = Color.Red,
-                        modifier = Modifier.padding(end = 100.dp)
+                        modifier = Modifier.padding(end = 60.dp)
                     )
                 }
                 TextField(
                     value = password,
                     onValueChange = {
                         password = it
+                        errorP = it.isEmpty()
                         plength = it.length < 6
                     },
                     label = {
@@ -234,14 +244,21 @@ class SignUpActivity : ComponentActivity() {
                     )
                 )
                 OutlinedButton(onClick =
-                { register(email, password) }) {
-                    Text("Register")
+                {
+                    if (email.isEmpty() || password.isEmpty()) {
+                        // Mettre à jour l'état d'erreur du champ password si nécessaire
+                        emailError = email.isEmpty()
+                        errorP = password.isEmpty()
+                        return@OutlinedButton
+                    }
+                    register(email, password) }, modifier = Modifier.padding(8.dp)) {
+                    Text("Register",style = TextStyle(fontSize = 20.sp,fontWeight = FontWeight.Bold ))
                 }
                 TextButton(onClick = {
                     val intent = Intent(context, LoginActivity::class.java)
                    startActivity(intent)
                 }) {
-                    Text("Connexion")
+                    Text("Connexion",style = TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Bold ))
                 }
 
             }
