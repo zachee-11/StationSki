@@ -280,7 +280,14 @@ class LoginActivity : ComponentActivity() {
                         unfocusedTrailingIconColor = Color.White
                     )
                 )
-
+                Text(
+                    "Mot de passe oublié ?",
+                    style = TextStyle(color = Color.White),
+                    modifier = Modifier.clickable {
+                        val intent = Intent(context, ResetPasswordActivity::class.java)
+                        startActivity(intent)
+                    }
+                )
                 OutlinedButton(onClick = {
                     if (email.isEmpty() || password.isEmpty()) {
                         emailError = email.isEmpty()

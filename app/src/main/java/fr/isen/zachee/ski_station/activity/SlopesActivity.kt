@@ -48,7 +48,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import fr.isen.zachee.ski_station.CommentServiceSlop
+import fr.isen.zachee.ski_station.db_services.CommentServiceSlop
 import fr.isen.zachee.ski_station.R
 import fr.isen.zachee.ski_station.database.SkiDatabase
 import fr.isen.zachee.ski_station.dataclass.CommentSlops

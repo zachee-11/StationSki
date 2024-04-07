@@ -1,4 +1,4 @@
-package fr.isen.zachee.ski_station
+package fr.isen.zachee.ski_station.db_services
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

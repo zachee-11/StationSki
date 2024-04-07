@@ -58,6 +58,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import fr.isen.zachee.ski_station.activity.HomeActivity
+import fr.isen.zachee.ski_station.activity.ResetPasswordActivity
 import fr.isen.zachee.ski_station.activity.SignUpActivity
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -279,6 +280,14 @@ class MainActivity : ComponentActivity() {
                         focusedTrailingIconColor = Color.White,
                         unfocusedTrailingIconColor = Color.White
                     )
+                )
+                Text(
+                    "Mot de passe oublié ?",
+                    style = TextStyle(color = Color.Yellow),
+                    modifier = Modifier.clickable {
+                        val intent = Intent(context, ResetPasswordActivity::class.java)
+                        startActivity(intent)
+                    }
                 )
 
                 OutlinedButton(onClick = {

@@ -13,6 +13,12 @@
         android:theme="@style/Theme.SkiStation"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ItineraireActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ResetPasswordActivity"
             android:exported="false" />
         <activity

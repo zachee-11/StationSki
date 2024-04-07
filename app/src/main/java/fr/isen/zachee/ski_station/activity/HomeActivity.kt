@@ -172,10 +172,19 @@ class HomeActivity:ComponentActivity() {
             Button(onClick = { startActivity(Intent(this@HomeActivity, SlopesActivity::class.java)) }) {
                 Text("Slopes")
             }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Button(onClick = { startActivity(Intent(this@HomeActivity, LiftsActivity::class.java)) }) {
                 Text("Lifts")
             }
+            Spacer(modifier = Modifier.height(4.dp))
+            Button(onClick = { startActivity(Intent(this@HomeActivity, ItineraireActivity::class.java)) }) {
+                Text("Trouvez un itinéraire")
+            }
+            Spacer(modifier = Modifier.height(4.dp))
+            Button(onClick = { startActivity(Intent(this@HomeActivity, ChatActivity::class.java)) }) {
+                Text("Chattez avec des amis")
+            }
+
         }
     }
     override fun onPause() {
